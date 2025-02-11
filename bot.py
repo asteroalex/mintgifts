@@ -2,7 +2,7 @@ import socketio
 import asyncio
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import InputFile
-from aiogram.filters.command import Command
+from aiogram.filters import Command
 
 # Создаем клиент для подключения к серверу
 sio = socketio.AsyncClient()
