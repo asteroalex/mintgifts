@@ -1,10 +1,10 @@
-FROM python:3.9-alpine
+FROM python:3.9
 
 WORKDIR /app
 COPY . /app/
 
-RUN apk add --no-cache --virtual .build-deps gcc musl-dev libffi-dev \
-    && pip install --no-cache-dir -r requirements.txt \
-    && apk del .build-deps
+# Обновляем pip, устанавливаем зависимости
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt
 
 CMD ["python", "bot.py"]
