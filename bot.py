@@ -37,16 +37,16 @@ async def newMint(data):
         try:
             # Отправляем изображение только тем пользователям, кто не выключил обновления
             for user_id, status in users_status.items():
-                if status == 'active':  # Отправляем только активным пользователям
-                    chat_id = users_status[user_id]['chat_id']
+                if status['status'] == 'active':  # Отправляем только активным пользователям
+                    chat_id = status['chat_id']
                     await bot.send_photo(chat_id=chat_id, photo=image_preview, caption=formatted_message)
         except Exception as e:
             print(f"Ошибка при отправке изображения: {e}")
     else:
         # Если изображения нет, отправляем только текст
         for user_id, status in users_status.items():
-            if status == 'active':  # Отправляем только активным пользователям
-                chat_id = users_status[user_id]['chat_id']
+            if status['status'] == 'active':  # Отправляем только активным пользователям
+                chat_id = status['chat_id']
                 await bot.send_message(chat_id=chat_id, text=formatted_message)
 
 # Обработчик для команды /start
