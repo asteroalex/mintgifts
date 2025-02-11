@@ -1,16 +1,19 @@
 # Используем официальный образ Python
 FROM python:3.11-slim
 
-# Устанавливаем нужные пакеты для сборки aiohttp
+# Устанавливаем системные библиотеки для aiohttp
 RUN apt-get update && apt-get install -y gcc libffi-dev
 
-# Создаём рабочую директорию в контейнере
+# Обновляем pip и устанавливаем зависимости напрямую
+RUN pip install --upgrade pip wheel setuptools
+
+# Создаём рабочую директорию
 WORKDIR /app
 
-# Копируем файлы проекта в контейнер
+# Копируем файлы проекта
 COPY . /app
 
-# Устанавливаем зависимости
+# Устанавливаем зависимости БЕЗ создания venv
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Запускаем бота
