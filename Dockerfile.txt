@@ -1,20 +1,18 @@
 # Используем официальный образ Python
 FROM python:3.11-slim
 
-# Устанавливаем системные библиотеки для aiohttp
-RUN apt-get update && apt-get install -y gcc libffi-dev
-
-# Отключаем venv
-ENV PIP_NO_VENV=True
-
-# Обновляем pip и устанавливаем зависимости напрямую
-RUN pip install --upgrade pip wheel setuptools
+# Устанавливаем системные библиотеки для aiohttp и venv
+RUN apt-get update && apt-get install -y gcc libffi-dev python3-venv
 
 # Создаём рабочую директорию
 WORKDIR /app
 
 # Копируем файлы проекта
 COPY . /app
+
+# Создаём venv вручную и активируем его
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
 
 # Устанавливаем зависимости
 RUN pip install --no-cache-dir -r requirements.txt
