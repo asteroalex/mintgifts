@@ -1,0 +1,2 @@
+aiogram==3.0.0b1  # Для работы с Telegram API
+python-socketio==5.7.0  # Для работы с Socket.IO
